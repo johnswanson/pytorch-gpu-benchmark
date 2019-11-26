@@ -21,6 +21,7 @@ MODEL_LIST = {
 
 precision=["single","half",'double']
 device_name=torch.cuda.get_device_name(0)
+device_count=torch.cuda.device_count()
 
 # Training settings
 parser = argparse.ArgumentParser(description='PyTorch Benchmarking')
@@ -28,7 +29,7 @@ parser.add_argument('--WARM_UP','-w', type=int,default=5, required=False, help="
 parser.add_argument('--NUM_TEST','-n', type=int,default=50,required=False, help="Num of Test")
 parser.add_argument('--BATCH_SIZE','-b', type=int, default=20, required=False, help='Num of batch size')
 parser.add_argument('--NUM_CLASSES','-c', type=int, default=1000, required=False, help='Num of class')
-parser.add_argument('--NUM_GPU','-g', type=int, default=1, required=False, help='Num of class')
+parser.add_argument('--NUM_GPU','-g', type=int, default=device_count, required=False, help='Num of class')
 
 args = parser.parse_args()
 device_name+='_'+str(args.NUM_GPU)+'_gpus_'
