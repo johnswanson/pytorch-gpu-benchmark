@@ -77,6 +77,7 @@ def train(type='single'):
 def inference(type='single'):
     benchmark = {}
     img = Variable(torch.randn(args.BATCH_SIZE, 3, 224, 224), requires_grad=True).cuda()
+    print('Device: %s' % (device_name))
     with torch.no_grad():
         for model_type in MODEL_LIST.keys():
             for model_name in MODEL_LIST[model_type]:
@@ -117,8 +118,8 @@ if __name__ == '__main__':
         training_benchmark.to_csv('results/'+device_name+"_"+i+'_model_training_benchmark.csv', index=False)
         inference_benchmark = pandas.DataFrame(inference(i))
         inference_benchmark.to_csv('results/'+device_name+"_"+i+'_model_inference_benchmark.csv', index=False)
-    train=arr_train()
-    inference=arr_inference()
+    train=arr_train(device_name)
+    inference=arr_inference(device_name)
 
 
     total_model(train,device_name)
